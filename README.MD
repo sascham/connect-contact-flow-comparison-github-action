@@ -11,7 +11,7 @@ This guide explains how to use the Contact Flow Comparison GitHub Action - a too
 
 - GitHub repository with Amazon Connect contact flows
 - GitHub Actions enabled in your repository
-- AWS Account with the following permissions:
+- AWS Account with the following permissions (Note: While [Bedrock inference profiles](https://docs.aws.amazon.com/bedrock/latest/userguide/inference-profiles-support.html) are available in a few regions, this implementation is configured for us-east-1):
 
 ```
   {
@@ -146,6 +146,7 @@ Results will be html pages available in the GitHub Actions workflow run as an ar
 
 - Ensure your contact flows are in the correct format and location
 - Make sure AWS credentials are properly configured
+- While [Amazon Bedrock inference profiles](https://docs.aws.amazon.com/bedrock/latest/userguide/inference-profiles-support.html) are available in a few regions, this implementation is configured to use us-east-1. To use a different region, you will need to modify the Bedrock ARN in the code and IAM permissions accordingly.
 
 ### Example of a simple contact flow change
 

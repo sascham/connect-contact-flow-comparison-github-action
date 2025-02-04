@@ -227,7 +227,7 @@ def compare_contact_flows(fileName: str, file1_path: str, file2_path: str) -> st
         bedrock_runtime, account_id = get_aws_clients()
         # Initialize utilities
         rate_limiter = TokenRateLimiter(tokens_per_minute=400000)
-        response = invoke_bedrock_with_retries(bedrock_runtime, account_id,request, rate_limiter=rate_limiter)
+        response = invoke_bedrock_with_retries(bedrock_runtime, account_id, request, rate_limiter=rate_limiter)
         
         # Parse the response
         response_body = json.loads(response['body'].read())

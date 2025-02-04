@@ -1,0 +1,39 @@
+name: Code Quality Checks
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: astral-sh/ruff-action@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest pytest-cov coverage bandit 
+          pip install -r requirements.txt
+
+      - name: Run yamllint
+        uses: ibiqlik/action-yamllint@v3
+        with:
+          file_or_dir: action.yml
+          config_file: .yamllint.yml
+
+      - name: Run actionlint
+        uses: reviewdog/action-actionlint@v1
+
+      - name: Run pytest
+        run: pytest -v tests/ --cov=src --cov-report=html
+
+      - name: Run Ruff
+        run: ruff check
+
+      - name: Perform Bandit Analysis
+        run: bandit -r ./get_flows.py
