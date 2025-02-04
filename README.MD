@@ -98,7 +98,7 @@ Create a new workflow file (e.g., .github/workflows/compare-flows.yml):
               aws-region: us-east-1
 
           - name: Run Compare Action
-            uses: awsjasono/contact-flow-comparison-github-action@main
+            uses: aws-samples/connect-contact-flow-comparison-github-action@main
             env:
               ENVIRONMENT: dev
             with:
