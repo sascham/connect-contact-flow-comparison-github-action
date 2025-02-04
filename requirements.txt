@@ -1,0 +1,10 @@
+boto3==1.35.90
+botocore==1.35.90
+fastcore==1.7.28
+ghapi==1.0.6
+jmespath==1.0.1
+packaging==24.2
+python-dateutil==2.9.0.post0
+s3transfer==0.10.4
+six==1.17.0
+urllib3==2.3.0

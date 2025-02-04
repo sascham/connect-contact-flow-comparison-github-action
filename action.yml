@@ -1,0 +1,58 @@
+name: "Contact Flow Comparison Visualizer"
+description: "This action will compare changes in contact flows for a given Github commit"
+
+branding:
+  icon: "eye"
+  color: "blue"
+
+inputs:
+  github_pat:
+    description: "The Github token with permissions to repo"
+    required: true
+  repo_owner:
+    description: "The Github owner of the repo"
+    required: true
+  repo:
+    description: "The Github repository"
+    required: true
+  commit_sha:
+    description: "The Github commit SHA value"
+    required: true
+  contact_flow_path:
+    description: "The relative path of directory where contact flows stored"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set GitHub Path
+      run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
+      shell: bash
+      env:
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+    - name: Set GitHub Path
+      run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
+      shell: bash
+      env:
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
+    - name: PIP install
+      run: pip install -r $GITHUB_ACTION_PATH/requirements.txt
+      shell: bash
+
+    - name: Run compare script
+      shell: bash
+      run: |
+        python $GITHUB_ACTION_PATH/src/get_flows.py \
+          --token ${{ inputs.github_pat }} \
+          --owner ${{ inputs.repo_owner }} \
+          --repo ${{ inputs.repo }} \
+          --commit ${{ inputs.commit_sha }} \
+          --contact_flow_path ${{ inputs.contact_flow_path }}
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        path: ./*.html
