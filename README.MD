@@ -31,8 +31,6 @@ This guide explains how to use the Contact Flow Comparison GitHub Action - a too
   }
 ```
 
-- This solution is using OIDC between Github and AWS as it is the preferred method to [authenticate securely](https://docs.github.com/en/actions/security-for-github-actions/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services). You could also use an access key and access secret if unable to use OIDC.
-
 ## Required Permissions
 
     permissions:
